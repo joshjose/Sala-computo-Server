@@ -211,7 +211,6 @@ public class Menu extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 51));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
@@ -326,7 +325,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
