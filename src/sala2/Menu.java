@@ -44,7 +44,7 @@ public class Menu extends javax.swing.JFrame {
 
   private int num_com;
     /**
-     * Creates new form Menu
+     * Creates new form Menu 
      */
     public Menu() {
         initComponents();
