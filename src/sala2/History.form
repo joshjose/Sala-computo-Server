@@ -107,7 +107,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="vfecha" min="-2" pref="154" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="datefecha" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
