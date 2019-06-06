@@ -127,7 +127,7 @@ public class GeneratePDF {
             // Now we fill the PDF table 
             // Ahora llenamos la tabla del PDF
             PdfPCell columnHeader;
-            
+          
             // Fill table rows (rellenamos las filas de la tabla).                
             for (int column = 0; column < numColumns; column++) {
                 columnHeader = new PdfPCell(new Phrase(hystab.getColumnName(column)));
@@ -139,6 +139,7 @@ public class GeneratePDF {
            
             // Fill table rows (rellenamos las filas de la tabla).                
             for (int row = 0; row < numRows; row++) {
+                
                 for (int column = 0; column < numColumns; column++) {
                     table.addCell(hystab.getValueAt(row, column).toString());
                     
@@ -159,7 +160,7 @@ public class GeneratePDF {
               Paragraph par4= new Paragraph("Se muestra el uso de los equipos por medio de una grafica ", subcategoryFont);
             
              
-       
+      
             chapter2.add(par4);
             chapter2.add(par2);
              // We add an image (Añadimos una imagen)
@@ -181,7 +182,7 @@ public class GeneratePDF {
             // We add the paragraph with the table (Añadimos el elemento con la tabla).
             document.add(chapter1);
             document.add(chapter2);
-           
+          
             document.close();
             System.out.println("Your PDF file has been generated!(¡Se ha generado su archivo PDF!");
             JOptionPane.showMessageDialog(null,"Your PDF file has been generated!(¡Se ha generado tu hoja PDF!" );
