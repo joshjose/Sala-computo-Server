@@ -72,15 +72,17 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="edit" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="delete" max="32767" attributes="0"/>
-                                  <Component id="add" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="delete" min="-2" pref="139" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="add" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
