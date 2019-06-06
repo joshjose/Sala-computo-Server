@@ -174,8 +174,8 @@ public class GeneratePDF {
                 System.out.println("Image IOException " +  ex);
             }
             
-             Paragraph par5= new Paragraph("Equipo mas utiliado: 3 ", subcategoryFont);
-             chapter2.add(par5);
+             //Paragraph par5= new Paragraph("Equipo mas utiliado: 3 ", subcategoryFont);
+             //chapter2.add(par5);
              
              
             // We add the paragraph with the table (Añadimos el elemento con la tabla).

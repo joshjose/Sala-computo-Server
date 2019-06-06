@@ -615,7 +615,7 @@ public class Menu extends javax.swing.JFrame {
         while (it.hasNext()) 
         {
          try {
-             writer.flush(); 
+             
             PrintWriter writer1 = (PrintWriter) it.next();
             
                writer1.println(tell);
