@@ -572,7 +572,7 @@ JFrame ventana = new JFrame("El grafico");
 ventana.getContentPane().add(panel);
 ventana.pack();
 ventana.setVisible(true);
-ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
        
         

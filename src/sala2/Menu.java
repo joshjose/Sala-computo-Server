@@ -50,10 +50,10 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
        
-          
-        showcomputers();
-        WindowPane.setLayout(new GridLayout(1, 10));
+          WindowPane.setLayout(new GridLayout(1, 10));
         MacPane.setLayout(new GridLayout(1, 10));
+        showcomputers();
+        
         b_start();
     }
 
@@ -63,8 +63,8 @@ public class Menu extends javax.swing.JFrame {
 
     public void showcomputers() {
         maquinas.clear();
-        WindowPane.removeAll();
-        MacPane.removeAll();
+       WindowPane.removeAll();
+       MacPane.removeAll();
          
         
         Query request = new Query();
@@ -159,7 +159,10 @@ public class Menu extends javax.swing.JFrame {
         } finally {
             con = null;
         }
-        this.repaint();
+        WindowPane.doLayout();
+        MacPane.doLayout();
+        
+        
 
     }
 
@@ -180,6 +183,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         WindowPane = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -207,10 +211,11 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jInternalFrame1.setBackground(new java.awt.Color(255, 153, 0));
+        jInternalFrame1.setBackground(new java.awt.Color(255, 255, 255));
+        jInternalFrame1.setForeground(new java.awt.Color(255, 102, 0));
         jInternalFrame1.setVisible(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
@@ -221,6 +226,8 @@ public class Menu extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("INSTITUTO TECNOLÓGICO SUPERIOR DE TEPOSCOLULA");
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logit.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,7 +235,9 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1181, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1169, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,14 +255,17 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 153, 0));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fila 1", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Times New Roman", 2, 36))); // NOI18N
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fila 1", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Times New Roman", 2, 36), new java.awt.Color(255, 153, 0))); // NOI18N
         jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jScrollPane1.setName(""); // NOI18N
 
@@ -272,8 +284,8 @@ public class Menu extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(WindowPane);
 
-        jScrollPane2.setBackground(new java.awt.Color(255, 153, 0));
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fila 2", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Times New Roman", 2, 36))); // NOI18N
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fila 2", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Times New Roman", 2, 36), new java.awt.Color(255, 153, 0))); // NOI18N
         jScrollPane2.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
 
         MacPane.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
@@ -319,8 +331,7 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(293, 293, 293)
                         .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3)
-                .addContainerGap())
+                .addComponent(jScrollPane3))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +343,9 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addGap(6, 6, 6))
-            .addComponent(jScrollPane3)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenu1.setText("Sala de Computo");
@@ -377,12 +390,12 @@ public class Menu extends javax.swing.JFrame {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -427,8 +440,13 @@ public class Menu extends javax.swing.JFrame {
 
 
     public void computers(){
+        
          Computers start = new Computers();
         start.setVisible(true);
+       
+         
+        showcomputers();
+        
     }
 
     /**
@@ -641,6 +659,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

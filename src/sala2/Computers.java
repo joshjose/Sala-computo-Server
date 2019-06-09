@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
+import sala2.Menu;
 /**
  *
  * @author gg
@@ -25,11 +25,11 @@ public class Computers extends javax.swing.JFrame {
     /**
      * Creates new form Computadoras
      */
-    public Computers() {
-        initComponents();
+
+public Computers() {
+        initComponents();   
     mostrarlista();
     }
-
     
     public void mostrarlista() {
         Query request = new Query();
@@ -116,8 +116,6 @@ public class Computers extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         view = new javax.swing.JTable();
         add = new javax.swing.JButton();
-        buscar_compu = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
 
         Editar.setText("Editar");
         Editar.addActionListener(new java.awt.event.ActionListener() {
@@ -179,36 +177,19 @@ public class Computers extends javax.swing.JFrame {
             }
         });
 
-        buscar_compu.setText("Aun no hace nada");
-        buscar_compu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscar_compuActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buscar_compu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(edit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(edit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(add)
@@ -217,11 +198,7 @@ public class Computers extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buscar_compu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(15, 15, 15)
+                .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(add)
@@ -246,12 +223,13 @@ JOptionPane.showMessageDialog(null,number);
         Conexion_DB con = new Conexion_DB();
         String SQLQuery = "";
 
-            SQLQuery = "DELETE from computadora WHERE Id= "+number;
+            SQLQuery = "DELETE from computadora WHERE Id= '"+number+"'";
    boolean delete= request.execute(SQLQuery);
    if(delete){
        JOptionPane.showMessageDialog(null,"computadora eliminada ");
    }
    mostrarlista();
+   
     }//GEN-LAST:event_deleteActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
@@ -280,13 +258,6 @@ so=so(JOptionPane.showInputDialog(null," Windows ó Mac"));
    
            }//GEN-LAST:event_addActionPerformed
 
-    private void buscar_compuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_compuActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-    }//GEN-LAST:event_buscar_compuActionPerformed
-
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
          Query request = new Query();
 
@@ -294,20 +265,24 @@ so=so(JOptionPane.showInputDialog(null," Windows ó Mac"));
 this.number= Integer.parseInt(compu_table.getValueAt(view.getSelectedRow(),0).toString());
 JOptionPane.showMessageDialog(null,number);
 row=Integer.parseInt(compu_table.getValueAt(view.getSelectedRow(),1).toString());
+
 available=disponible(compu_table.getValueAt(view.getSelectedRow(),2).toString());
+
 so=so(compu_table.getValueAt(view.getSelectedRow(),3).toString());
+
 
 
 
         Conexion_DB con = new Conexion_DB();
         String SQLQuery = "";
 
-            SQLQuery = "Update computadora set Fila ="+row+",Disponible ="+available+",SO ="+so+" WHERE Id= "+number;
+            SQLQuery = "Update computadora set Disponible ='"+available+"', Fila ='"+row+"',SO ='"+so+"' WHERE Id= '"+number+"'";
    boolean update= request.execute(SQLQuery);
    if(update){
        JOptionPane.showMessageDialog(null,"Modificación Agregada, Reinicie Sistema Para Mostrar Cambios ");
    }
    mostrarlista();
+
     }//GEN-LAST:event_editActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
@@ -355,7 +330,7 @@ so=so(compu_table.getValueAt(view.getSelectedRow(),3).toString());
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Computers().setVisible(true);
+                new Computers( ).setVisible(true);
             }
         });
     }
@@ -364,10 +339,8 @@ so=so(compu_table.getValueAt(view.getSelectedRow(),3).toString());
     private javax.swing.JMenuItem Editar;
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JButton add;
-    private javax.swing.JTextField buscar_compu;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu ppm_compus;
     private javax.swing.JTable view;
