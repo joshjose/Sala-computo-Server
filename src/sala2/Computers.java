@@ -215,21 +215,25 @@ public Computers() {
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         Query request = new Query();
 
-
+        
+        
+if(JOptionPane.showConfirmDialog(null," ¿Esta seguro de Eliminar el Equipo? ¡¡¡Esta accion ELIMINARÁ todo registro del equipo!!!")==0){
 number= Integer.parseInt(compu_table.getValueAt(view.getSelectedRow(),0).toString());
 JOptionPane.showMessageDialog(null,number);
 
 
         Conexion_DB con = new Conexion_DB();
         String SQLQuery = "";
-
-            SQLQuery = "DELETE from computadora WHERE Id= '"+number+"'";
-   boolean delete= request.execute(SQLQuery);
-   if(delete){
+        String SQLQuery2 = "";
+            SQLQuery = "DELETE from registro WHERE Id_Computer= '"+number+"'";
+            SQLQuery2 = "DELETE from computadora WHERE Id= '"+number+"'";
+    boolean delete= request.execute(SQLQuery);         
+   boolean delete2= request.execute(SQLQuery2);
+   if(delete && delete2){
        JOptionPane.showMessageDialog(null,"computadora eliminada ");
    }
    mostrarlista();
-   
+}
     }//GEN-LAST:event_deleteActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed

@@ -73,6 +73,10 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jrb_maquina" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jrb_carrera" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jrb_hora" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -164,6 +168,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jrb_maquina" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jrb_carrera" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jrb_hora" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -367,8 +373,27 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jrb_maquina">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Uso de Maquinas"/>
+            <Property name="text" type="java.lang.String" value="Uso por Maquinas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrb_maquinaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jrb_carrera">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Uso por Carrera"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrb_carreraActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jrb_hora">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Uso por Hora"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrb_horaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

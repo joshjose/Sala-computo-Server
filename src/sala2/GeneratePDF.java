@@ -34,7 +34,9 @@ public class GeneratePDF {
     private static final Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     
     private static final String logotipos= "C:/SalaC/images/LOGOS.png";
-    private static final String charts= "C:/SalaC/images/usomaquinas.jpg";
+    private static final String chartsE= "C:/SalaC/images/usomaquinas.jpg";
+    private static final String chartsC= "C:/SalaC/images/usoporcarreras.jpg";
+    private static final String chartsH= "C:/SalaC/images/usoporhora.jpg";
     /**
      * We create a PDF document with iText using different elements to learn 
      * to use this library.
@@ -44,7 +46,7 @@ public class GeneratePDF {
      *      pdf File we are going to write. 
      *      Fichero pdf en el que vamos a escribir. 
      */
-    public void createPDF(File pdfNewFile,DefaultTableModel hystab) {
+    public void createPDF(File pdfNewFile,DefaultTableModel hystab,String MaxE,String MaxC,String MaxH) {
         // We create the document and set the file name.        
         // Creamos el documento e indicamos el nombre del fichero.
         try {   
@@ -56,7 +58,7 @@ public class GeneratePDF {
             }
             
              
-            
+                  
             document.open();
             // We add metadata to PDF
             // Añadimos los metadatos del PDF
@@ -152,12 +154,14 @@ public class GeneratePDF {
             par3.add(table);
             chapter1.add(par3);
             
+            //_______________________________________________________________________________________________________________//
+                                            // ocupamos capitulo 2 para mostrar las graficas
               Chapter chapter2 = new Chapter(1);
             
             
             
             
-              Paragraph par4= new Paragraph("Se muestra el uso de los equipos por medio de una grafica ", subcategoryFont);
+              Paragraph par4= new Paragraph("Se muestra el uso de los equipos por medio de una Grafica", subcategoryFont);
             
              
       
@@ -166,7 +170,7 @@ public class GeneratePDF {
              // We add an image (Añadimos una imagen)
             Image image2;
             try {
-                image2 = Image.getInstance(charts);  
+                image2 = Image.getInstance(chartsE);  
                 image2.setPaddingTop(100);
                 chapter2.add(image2);
             } catch (BadElementException ex) {
@@ -175,13 +179,81 @@ public class GeneratePDF {
                 System.out.println("Image IOException " +  ex);
             }
             
-             //Paragraph par5= new Paragraph("Equipo mas utiliado: 3 ", subcategoryFont);
-             //chapter2.add(par5);
+             Paragraph par5= new Paragraph("Equipo mas utiliado: "+MaxE, subcategoryFont);
+             chapter2.add(par5);
+             
+             
+             //____________________________________________________________________________________________________//
+             Chapter chapter3 = new Chapter(1);
+            
+            
+            
+            
+              Paragraph par6= new Paragraph("Se muestra el uso que se da a los equipos por carrera ", subcategoryFont);
+            
+             
+      
+            chapter3.add(par6);
+            chapter3.add(par2);
+             // We add an image (Añadimos una imagen)
+            Image image3;
+            try {
+                image3 = Image.getInstance(chartsC);  
+                image3.setPaddingTop(100);
+                chapter3.add(image3);
+            } catch (BadElementException ex) {
+                System.out.println("Image BadElementException" +  ex);
+            } catch (IOException ex) {
+                System.out.println("Image IOException " +  ex);
+            }
+            
+             Paragraph par7= new Paragraph("La Carrera que hace uso del centro de computo con mas frecuencia es la "+MaxC, subcategoryFont);
+             chapter3.add(par7);
+             
+             
+             
+             
+                     //____________________________________________________________________________________________________//
+             Chapter chapter4 = new Chapter(1);
+            
+            
+            
+            
+              Paragraph par8= new Paragraph("Se muestra la hora de uso de los equipos", subcategoryFont);
+            
+             
+      
+            chapter4.add(par8);
+            chapter4.add(par2);
+             // We add an image (Añadimos una imagen)
+            Image image4;
+            try {
+                image4 = Image.getInstance(chartsH);  
+                image4.setPaddingTop(100);
+                chapter4.add(image4);
+            } catch (BadElementException ex) {
+                System.out.println("Image BadElementException" +  ex);
+            } catch (IOException ex) {
+                System.out.println("Image IOException " +  ex);
+            }
+            
+             Paragraph par9= new Paragraph("El centro de computo cuenta con una hora pico a las "+MaxH, subcategoryFont);
+             chapter4.add(par9);
+             
+             
+             
+             
+             
+       
+             
+             
              
              
             // We add the paragraph with the table (Añadimos el elemento con la tabla).
             document.add(chapter1);
             document.add(chapter2);
+            document.add(chapter3);
+            document.add(chapter4);
           
             document.close();
             System.out.println("Your PDF file has been generated!(¡Se ha generado su archivo PDF!");
