@@ -3,7 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/josue/Documents/NetBeansProjects/sala2/Sala-computo-Server/src/sala2/Computers.java</file>
+=======
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/Prestamos.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/Query.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/Computers.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/Conexion_DB.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/GeneratePDF.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/Menu.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/History.java</file>
+            <file>file:/C:/Users/josue/Documents/GitHub/Sala-computo-Server/src/sala2/Sala2.java</file>
+>>>>>>> db2df29b8fb76a9b9f9f2bedc8772004a3052589
         </group>
     </open-files>
 </project-private>
