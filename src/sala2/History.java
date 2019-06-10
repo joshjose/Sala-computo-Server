@@ -56,7 +56,7 @@ public class History extends javax.swing.JFrame {
         Conexion_DB con = new Conexion_DB();
         String SQLQuery = "";
         if (vall.isSelected()) {
-            SQLQuery = "SELECT registro.Id,alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as Nombre, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour();
+            SQLQuery = "SELECT alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as NombreCompleto, carrera.Nombre AS carrera, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id INNER JOIN carrera ON alumno.Id_Carrera=carrera.Id where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+" and registro.Tiempo_Fin is not Null";
         }
         if (vfecha.isSelected()) {
             
@@ -64,11 +64,11 @@ public class History extends javax.swing.JFrame {
                     
                     String f;
             f = new SimpleDateFormat("yyyy-MM-dd").format(datefecha.getDate());
-            SQLQuery = "SELECT registro.Id,alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as Nombre, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+ "and registro.Fecha like '" + f + "'";
+            SQLQuery = "SELECT alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as NombreCompleto, carrera.Nombre AS carrera, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id INNER JOIN carrera ON alumno.Id_Carrera=carrera.Id where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+ "and registro.Fecha like '" + f + "' and registro.Tiempo_Fin is not Null";
 
         }
         if (vmes.isSelected()) {
-            SQLQuery = "SELECT registro.Id,alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as Nombre, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+ "and registro.Fecha like '2019-" + getMes() + "%'";
+            SQLQuery = "SELECT alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as NombreCompleto, carrera.Nombre AS carrera, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id INNER JOIN carrera ON alumno.Id_Carrera=carrera.Id  where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+ "and registro.Fecha like '2019-" + getMes() + "%' and registro.Tiempo_Fin is not Null";
 
         }
 
@@ -78,12 +78,12 @@ public class History extends javax.swing.JFrame {
             f1 = new SimpleDateFormat("yyyy-MM-dd").format(dateA.getDate());
              String f2;
             f2 = new SimpleDateFormat("yyyy-MM-dd").format(dateB.getDate());
-       SQLQuery = "SELECT registro.Id,alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as Nombre, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+ "and registro.Fecha >= '" + f1 + "'"+" and registro.Fecha  <='" + f2 + "'"; 
+       SQLQuery = "SELECT alumno.NumControl, concat( persona.Nombres,' ',persona.Apellidos)as NombreCompleto, carrera.Nombre AS carrera, registro.Id_Computer,registro.Fecha, registro.Tiempo_Inicio,registro.Tiempo_Fin FROM registro INNER JOIN alumno ON registro.Id_Alumno=alumno.NumControl INNER JOIN persona ON alumno.Id_Persona=persona.Id INNER JOIN carrera ON alumno.Id_Carrera=carrera.Id  where registro.Id_Computer like " + getMaquina() + " and registro.Tiempo_Inicio like " + getHour()+ "and registro.Fecha >= '" + f1 + "'"+" and registro.Fecha  <='" + f2 + "' and registro.Tiempo_Fin is not Null"; 
         }
 
         ResultSet rs = request.executeQuery(SQLQuery, con);
         try {
-            String titulos[] = {"Id", "No. control", "Nombre", "Computadora", "Fecha", "Tiem", "Tiempo Finalizado"};
+            String titulos[] = { "No. control", "Nombre Completo","Carrera", "Computadora", "Fecha", "Tiempo Inicio", "Tiempo Finalizado"};
             String datos[] = new String[7];
 
             hsytab = new DefaultTableModel(null, titulos);
@@ -274,6 +274,8 @@ public class History extends javax.swing.JFrame {
         dateB = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jrb_maquina = new javax.swing.JRadioButton();
+        jrb_carrera = new javax.swing.JRadioButton();
+        jrb_hora = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -385,7 +387,26 @@ public class History extends javax.swing.JFrame {
         jLabel4.setText("Graficas:");
         jLabel4.setToolTipText("Mostrar en reporte");
 
-        jrb_maquina.setText("Uso de Maquinas");
+        jrb_maquina.setText("Uso por Maquinas");
+        jrb_maquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_maquinaActionPerformed(evt);
+            }
+        });
+
+        jrb_carrera.setText("Uso por Carrera");
+        jrb_carrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_carreraActionPerformed(evt);
+            }
+        });
+
+        jrb_hora.setText("Uso por Hora");
+        jrb_hora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_horaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -409,6 +430,10 @@ public class History extends javax.swing.JFrame {
                                 .addComponent(jButton1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jrb_maquina)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jrb_carrera)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jrb_hora)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,7 +506,9 @@ public class History extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jrb_maquina))
+                    .addComponent(jrb_maquina)
+                    .addComponent(jrb_carrera)
+                    .addComponent(jrb_hora))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -533,51 +560,11 @@ public class History extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      
          try{
-       
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            
-            int[] cant=new int[100]; 
-            for(int i=0;i<100;i++){
-            cant[i]=0;
-            
-            }
-
-            for(int i=0;i<hsytab.getRowCount();i++){
-            
-             cant[Integer.parseInt(hsytab.getValueAt(i, 3).toString())]++;
-
-            }
-            
-           for(int i=0;i<cant.length;i++){
-          
-               if(cant[i]!=0)
-               {
-                   
-                   dataset.setValue(cant[i],"Equipo",""+i);
-                   
-               
-               }
-            
-            }  
-           JFreeChart chart = ChartFactory.createBarChart3D("Uso de Equipos en el Centro de Computo", "Equipo",
-   "Número de Uso", dataset, PlotOrientation.VERTICAL, true,
-   true, false);
-           
-          ChartUtilities.saveChartAsJPEG(new File("C:/SalaC/images/usomaquinas.jpg"), chart, 500, 300);
-           if(jrb_maquina.isSelected()){
-          // Creación del panel con el gráfico
-ChartPanel panel = new ChartPanel(chart);
-
-JFrame ventana = new JFrame("El grafico");
-ventana.getContentPane().add(panel);
-ventana.pack();
-ventana.setVisible(true);
-ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-       
-        
-        
-               
+            String  mxMaquina,mxCarrera,mxHora =" ";
+           mxMaquina=  CreateGraphMaquinas();
+           mxCarrera=  CreateGraphCarrera(); 
+           mxHora=  CreateGraphHora();
+  
                   GeneratePDF generar = new GeneratePDF();
                JFileChooser jfchooser =new JFileChooser();
               
@@ -589,7 +576,7 @@ ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                File pdf=jfchooser.getSelectedFile();
                
                
-               generar.createPDF( pdf , hsytab);
+               generar.createPDF( pdf , hsytab,mxMaquina,mxCarrera,mxHora);
       
   } catch (Exception e) {
     }
@@ -614,6 +601,18 @@ ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     private void dateBPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateBPropertyChange
         mostrarlista();
     }//GEN-LAST:event_dateBPropertyChange
+
+    private void jrb_carreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_carreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrb_carreraActionPerformed
+
+    private void jrb_maquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_maquinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrb_maquinaActionPerformed
+
+    private void jrb_horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_horaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrb_horaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -686,6 +685,8 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JRadioButton jrb_carrera;
+    private javax.swing.JRadioButton jrb_hora;
     private javax.swing.JRadioButton jrb_maquina;
     private javax.swing.JComboBox maquinas;
     private com.toedter.calendar.JMonthChooser month;
@@ -695,4 +696,377 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.ButtonGroup viewDate;
     private javax.swing.JRadioButton vmes;
     // End of variables declaration//GEN-END:variables
+
+
+public String CreateGraphMaquinas(){
+    int maxm=0;
+    int contador=0;
+        try {
+        
+            
+    //calcular uso de equipos
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            //initializes all the values in the cant array with 0
+            int[] cant=new int[100]; 
+            for(int i=0;i<100;i++){
+            cant[i]=0;
+            
+            }
+                //for every register found in the table with the computer number, it  will be counted in the array list 
+            for(int i=0;i<hsytab.getRowCount();i++){      
+             cant[Integer.parseInt(hsytab.getValueAt(i, 3).toString())]++;
+            }
+            //every data that is diferent to 0 will be saved to the dataset 
+           for(int i=0;i<cant.length;i++){
+          
+               if(cant[i]!=0)
+               {
+                   dataset.setValue(cant[i],"Equipo"," "+i);
+                   //determine computer with max usage
+                   if(cant[i]>contador){ contador=cant[i]; maxm=i; }
+                   
+                   
+                   
+               }
+            
+            }  
+           
+
+           //create bargraph for computer usage
+           JFreeChart chart1 = ChartFactory.createBarChart("Uso de Equipos en el Centro de Computo", "Equipo",
+   "Número de Uso", dataset, PlotOrientation.VERTICAL, true,
+   true, false);
+           
+          ChartUtilities.saveChartAsJPEG(new File("C:/SalaC/images/usomaquinas.jpg"), chart1, 500, 300);
+           if(jrb_maquina.isSelected()){
+          // Creación del panel con el gráfico
+ChartPanel panel = new ChartPanel(chart1);
+
+JFrame ventana = new JFrame("Uso por Equipo");
+ventana.getContentPane().add(panel);
+ventana.pack();
+ventana.setVisible(true);
+ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+           }
+ 
+    } catch (Exception e) {
+    }
+     return " "+maxm;
+}
+public String CreateGraphCarrera(){
+    int contador=0;
+    int maxc=0;
+        try {
+        
+            
+  //-------------------------------------------------------------------------------------------------------------------------------------------------------------//         
+     //calcular uso por carrera      
+           
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            //initializes all the values in the c0nt array with 0
+            int[] cant=new int[10]; 
+            for(int i=0;i<5;i++){
+            cant[i]=0;
+            
+            }
+                //for every register found in the table with the carreer mathced, it  will be counted  in the array list 
+            for(int i=0;i<hsytab.getRowCount();i++){      
+                
+                if(hsytab.getValueAt(i,2).toString().equals("Ingenieria en Sistemas Computacionales")){
+                cant[0]++;
+                }
+                 if(hsytab.getValueAt(i,2).toString().equals("Ingenieria en Administracion")){
+                cant[1]++;
+                }
+                  if(hsytab.getValueAt(i,2).toString().equals("Ingenieria en Desarollo Comunitario")){
+                cant[2]++;
+                }
+                   if(hsytab.getValueAt(i,2).toString().equals("Ingenieria en Logistica")){
+                cant[3]++;
+                }
+                    if(hsytab.getValueAt(i,2).toString().equals("Licenciatura en Gastronomia")){
+                cant[4]++;
+                }
+                    
+                    
+             
+            }
+            //every data that is diferent to 0 will be saved to the dataset 
+           for(int i=0;i<cant.length;i++){
+          
+               if(i==0)
+               {
+                   dataset.setValue(cant[i],"ISC"," ");
+               }
+               if(i==1)
+               {
+                   dataset.setValue(cant[i],"IAD"," ");
+               }
+               if(i==2)
+               {
+                   dataset.setValue(cant[i],"IDC"," ");
+               }
+               if(i==3)
+               {
+                   dataset.setValue(cant[i],"LOG"," ");
+               }
+               if(i==4)
+               {
+                   dataset.setValue(cant[i],"GAS"," ");
+               }
+               
+               //determine carreer with max usage
+               if(cant[i]>contador){contador=cant[i];maxc=i;}
+            
+            }  
+           
+                 
+           
+           //create bargraph for computer usage
+           JFreeChart chart2 = ChartFactory.createBarChart("Uso de Equipos por carrera", "Carreras",
+   " Uso", dataset, PlotOrientation.VERTICAL, true,
+   true, false);
+           
+          ChartUtilities.saveChartAsJPEG(new File("C:/SalaC/images/usoporcarreras.jpg"), chart2, 500, 300);
+           if(jrb_carrera.isSelected()){
+          // Creación del panel con el gráfico
+ChartPanel panel2 = new ChartPanel(chart2);
+
+JFrame ventana2 = new JFrame("Uso por Carrera");
+ventana2.getContentPane().add(panel2);
+ventana2.pack();
+ventana2.setVisible(true);
+ventana2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+           
+  }
+   
+           
+    } catch (Exception e) {
+    }
+        return carrera(maxc);
+           
+}
+public String carrera(int num){
+    String Career="";
+    switch(num){
+        
+        case 0:
+                Career= "Ingenieria En Sistemas Computacionales";
+            break;
+               
+        case 1:
+               Career="Ingenieria En Administracion";
+            break;
+               
+        case 2:
+                Career= "Ingenieria En Desarrollo Comunitario";
+            break;
+               
+        case 3:
+                Career= "Ingenieria En Logistica";
+            break;
+             
+        case 4:
+               Career= "Licenciatura en Gastronomia";
+            break;
+                
+    }
+       return   Career;   
+}
+
+public String CreateGraphHora(){
+   int contador=0;
+   int  hrapico=0;
+   
+        try {
+   
+//------------------------------------------------------------------------------------------------------------------------------------------------------------//
+  //calcular uso por horas       
+    
+       
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            //initializes all the values in the c0nt array with 0
+            int[] cant=new int[12]; 
+            for(int i=0;i<12;i++){
+            cant[i]=0;
+            
+            }
+                //for every register found in the table with the carreer mathced, it  will be counted  in the array list 
+            for(int i=0;i<hsytab.getRowCount();i++){      
+                
+                if(hsytab.getValueAt(i,5).toString().startsWith("08:")){
+                cant[0]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("09:")){
+                cant[1]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("10:")){
+                cant[2]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("11:")){
+                cant[3]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("00:")){
+                cant[4]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("01:")){
+                cant[5]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("02:")){
+                cant[6]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("03:")){
+                cant[7]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("04:")){
+                cant[8]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("05:")){
+                cant[9]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("06:")){
+                cant[10]++;
+                }
+               if(hsytab.getValueAt(i,5).toString().startsWith("07:")){
+                cant[11]++;
+                }
+               
+               
+             
+            }
+            //every data that is diferent to 0 will be saved to the dataset 
+           for(int i=0;i<cant.length;i++){
+               
+               //determines hour high point
+               if(cant[i]>contador){contador=cant[i]; hrapico=i;}
+          
+               if(i==0)
+               {
+                   dataset.setValue(cant[i],"uso","08:00");
+               }
+               if(i==1)
+               {
+                   dataset.setValue(cant[i],"uso","09:00");
+               }
+               if(i==2)
+               {
+                   dataset.setValue(cant[i],"uso","10:00");
+               }
+               if(i==3)
+               {
+                   dataset.setValue(cant[i],"uso","11:00");
+               }
+               if(i==4)
+               {
+                   dataset.setValue(cant[i],"uso","12:00");
+               }
+               if(i==5)
+               {
+                   dataset.setValue(cant[i],"uso","01:00");
+               }
+               if(i==6)
+               {
+                   dataset.setValue(cant[i],"uso","02:00");
+               }
+               if(i==7)
+               {
+                   dataset.setValue(cant[i],"uso","03:00");
+               }
+               if(i==8)
+               {
+                   dataset.setValue(cant[i],"uso","04:00");
+               }
+               if(i==9)
+               {
+                   dataset.setValue(cant[i],"uso","05:00");
+               }
+               if(i==10)
+               {
+                   dataset.setValue(cant[i],"uso","06:00");
+               }
+               if(i==11)
+               {
+                   dataset.setValue(cant[i],"uso","07:00");
+               }
+            
+            }  
+           
+                 
+           
+           //create bargraph for computer usage
+           JFreeChart chart3 = ChartFactory.createLineChart("Uso de Equipos por Hora", "Tiempo",
+   " Uso", dataset, PlotOrientation.VERTICAL, true,
+   true, false);
+          
+          ChartUtilities.saveChartAsJPEG(new File("C:/SalaC/images/usoporHora.jpg"), chart3, 500, 300);
+           if(jrb_hora.isSelected()){
+               
+          // Creación del panel con el gráfico
+ChartPanel panel3 = new ChartPanel(chart3);
+
+JFrame ventana3 = new JFrame("Uso por Hora");
+ventana3.getContentPane().add(panel3);
+ventana3.pack();
+ventana3.setVisible(true);
+ventana3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+           
+  }
+            
+            
+            
+    } catch (Exception e) {
+        System.out.println("Error:"+e);
+    }
+   return hora(hrapico);        
+}
+public String hora(int num){
+    String Hora="";
+    switch(num){
+        
+        case 0:
+                Hora= "08:00";
+            break;
+               
+        case 1:
+               Hora="09:00";
+            break;
+               
+        case 2:
+                Hora= "10:00";
+            break;
+               
+        case 3:
+                Hora= "11:00";
+            break;
+             
+        case 4:
+               Hora= "12:00";
+            break;
+        case 5:
+                Hora= "01:00";
+            break;
+        case 6:
+                Hora= "02:00";
+            break;
+        case 7:
+                Hora= "03:00";
+            break;
+        case 8:
+                Hora= "04:00";
+            break;
+        case 9:
+                Hora= "05:00";
+            break;
+        case 10:
+                Hora= "06:00";
+            break;
+        case 11:
+                Hora= "07:00";
+            break;
+         
+                
+    }
+       return   Hora;   
+}
+
 }

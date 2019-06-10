@@ -90,11 +90,11 @@ public class Menu extends javax.swing.JFrame {
                     btn.setText(rs.getInt(1) + "");
                     btn.setFont(new Font("Arial", Font.BOLD, 20));
                     if (rs.getInt(2) == 0) {
-                        btn.setBackground(java.awt.Color.green);
+                        btn.setBackground( reduceColorBrightness(Color.green));
                       
 
                     } else {
-                        btn.setBackground(java.awt.Color.red);
+                        btn.setBackground(reduceColorBrightness(Color.red));
                        
                     }
                     btn.setVerticalTextPosition((int) CENTER_ALIGNMENT);
@@ -130,11 +130,11 @@ public class Menu extends javax.swing.JFrame {
                     btn.setText(rs.getInt(1) + "");
                     btn.setFont(new Font("Arial", Font.BOLD, 20));
                     if (rs.getInt(2) == 0) {
-                        btn.setBackground(java.awt.Color.green);
+                        btn.setBackground(reduceColorBrightness(Color.green));
                       
 
                     } else {
-                        btn.setBackground(java.awt.Color.red);
+                         btn.setBackground(reduceColorBrightness(Color.red));
                        
                     }
                      btn.addMouseListener(new MouseAdapter() {
@@ -165,6 +165,20 @@ public class Menu extends javax.swing.JFrame {
         
 
     }
+    public static Color reduceColorBrightness(Color color) {
+	// lower brightness to 85% and saturation to 85%
+	int r, g, b;
+	float[] hsb = new float[3];
+	r = color.getRed();
+	g = color.getGreen();
+	b = color.getBlue();
+	Color.RGBtoHSB(r, g, b, hsb);
+	// brightness
+	hsb[2] *= 0.80f;
+	// saturation
+	hsb[1] *= 0.85f;
+	return Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
